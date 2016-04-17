@@ -50,6 +50,68 @@ First Island in DTD ie 'D' occurs alphabatically before 'H' and 'Z')
 
 
 char * find_common_route(char * hacklist, char *codelist, int *cost){
-	return NULL;
-}
+	int i, j, count = 0, p, k = 0, z, temp1 = 0, e, w;
+	char *temp, *str;
+	*cost = 0;
+	temp = (char *)malloc(sizeof(char)* 100);
+	str = (char *)malloc(sizeof(char)* 100);
+	if (hacklist&&codelist)
+	{
+		for (p = 0; hacklist[p] != '\0'; p++)
+		{
+			j = p;
+			for (i = 0; codelist[i] != '\0'; i++)
+			{
+				if (hacklist[j] == codelist[i])
+				{
 
+					temp[k] = hacklist[i];
+					count++;
+					j++;
+					k++;
+				}
+				else if (count != 0)
+				{
+					temp[k] = '\0';
+					if (temp1 == count)
+					{
+						for (z = 0; temp[z] != '\0'; z++)
+						{
+							if (temp[z] < str[z])
+							{
+								for (e = 0; temp[e] != '\0'; e++)
+								{
+									str[z] = temp[z];
+								}
+								str[z] = '\0';
+							}
+						}
+					}
+					else if (temp1 <count)
+					{
+						temp1 = 0;
+						for (z = 0; temp[z] != '\0'; z++)
+						{
+							temp1++;
+							str[z] = temp[z];
+						}
+						str[z] = '\0';
+					}
+					count = 0;
+					break;
+				}
+			}
+		}
+		i = 0;
+		while (str[i] != '\0')
+		{
+			w = str[i];
+			i++;
+			cost = cost + w;
+		}
+	}
+	else
+	{
+		return NULL;
+	}
+}
